@@ -3,65 +3,124 @@ const choices = ["rock", "paper", "scissors"];
 const buttons = Array.from(document.querySelectorAll("button"));
 let userScore = 0;
 let computerScore = 0;
+let winngScore = 5;
+
 // pick a random choice for the computer
 function getComputerChoice() {
   const randomChoice = choices[Math.floor(Math.random() * choices.length)];
   return randomChoice;
 }
 
-function playRound(playerSelection, computerSelection) {
+function disableButtons(buttons) {
+  buttons.forEach((button) => (button.disabled = true));
+}
+
+function playRound(playerChoice) {
   // set all variables and select the right divs
-  // const playerChoice = this.textContent.toLowerCase();
-  // let computerSelection = getComputerChoice();
-  playerHTML = document.getElementById("playerChoice");
-  computerHTML = document.getElementById("computerChoice");
-  resultHTML = document.getElementById("result");
-  // reset divs for playerChoice, computerChoice, and result for each round played
-  playerHTML.textContent = "";
-  computerHTML.textContent = "";
-  resultHTML.textContent = "";
+  let playerSelection = this.textContent.toLowerCase();
+  let computerSelection = getComputerChoice();
+  let playerHTML = document.getElementById("playerChoice");
+  let computerHTML = document.getElementById("computerChoice");
+  let resultHTML = document.getElementById("result");
+  let playerScoreHTML = document.getElementById("playerScore");
+  let computerScoreHTML = document.getElementById("computerScore");
+  let gameOver = document.getElementById("gameOver");
 
   // set the player and computer choices
   playerHTML.textContent = "You selected: " + playerSelection;
   computerHTML.textContent = "The computer selected: " + computerSelection;
 
-  // determine the result
+  // determine the result and increase the score
   if (playerSelection === "rock" && computerSelection === "scissors") {
+    userScore++;
     resultHTML.textContent = "You win!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You win!";
   } else if (playerSelection === "rock" && computerSelection === "paper") {
+    computerScore++;
     resultHTML.textContent = "You lose!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You lose!";
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
+    userScore++;
     resultHTML.textContent = "You win!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You win!";
   } else if (playerSelection === "scissors" && computerSelection === "rock") {
+    computerScore++;
     resultHTML.textContent = "You lose!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You lose!";
   } else if (playerSelection === "paper" && computerSelection === "scissors") {
+    computerScore++;
     resultHTML.textContent = "You lose!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You lose!";
   } else if (playerSelection === "paper" && computerSelection === "rock") {
+    userScore++;
     resultHTML.textContent = "You win!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
+    if (userScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU WIN!";
+      disableButtons(buttons);
+    }
+    if (computerScore == winngScore) {
+      gameOver.textContent = "GAME OVER! YOU LOSE!";
+      disableButtons(buttons);
+    }
     return "You win!";
   } else {
     resultHTML.textContent = "It's a tie!";
+    playerScoreHTML.textContent = "Your score: " + userScore;
+    computerScoreHTML.textContent = "Computer score: " + computerScore;
     return "It's a tie!";
   }
 }
 
-function game(playerChoice, computerChoice) {
-  let playerSelection = this.textContent.toLowerCase();
-  console.log(playerSelection);
-  let computerSelection = getComputerChoice();
-  let outcome = playRound(playerSelection, computerSelection);
-  if (outcome === "You win!") {
-    userScore++;
-  } else if (outcome === "You lose!") {
-    computerScore++;
-  } else {
-  }
-  console.log(`Score is You: ${userScore} Computer: ${computerScore}`);
-}
-
-buttons.forEach((button) => button.addEventListener("click", game));
+buttons.forEach((button) => button.addEventListener("click", playRound));
